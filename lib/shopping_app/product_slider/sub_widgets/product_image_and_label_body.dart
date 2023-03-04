@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_app/core/utils.dart';
 import 'package:shopping_app/shopping_app/home_page.dart';
-import 'package:shopping_app/shopping_app/product_detail/product_detail_page.dart';
 import 'package:shopping_app/shopping_app/product_slider/widget_designs/designs.dart';
 import '../widget_helpers/components.dart';
 
@@ -33,7 +29,7 @@ class ProductImageAndLabelBody extends StatelessWidget {
           children: [
             Container(
                 color: selectedCategory == index
-                    ? Color.fromARGB(255, 219, 28, 14)
+                    ? const Color.fromARGB(255, 219, 28, 14)
                     : Colors.red,
                 alignment: Alignment.center,
                 child: Padding(

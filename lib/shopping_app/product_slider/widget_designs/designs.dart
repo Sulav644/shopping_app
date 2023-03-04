@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/shopping_app/product_slider/sub_widgets/product_image_and_label_body.dart';
-
 import '../../../core/utils.dart';
 
 class Designs {
@@ -10,10 +8,10 @@ class Designs {
           required int index,
           required int selectedCategory}) =>
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               width: getWidthRatio(context, 0.35),
               height: 200,
               child: Column(
@@ -28,7 +26,7 @@ class Designs {
                       height: 50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                                 color: Color.fromARGB(255, 121, 120, 120),
                                 blurRadius: 8,
@@ -39,7 +37,7 @@ class Designs {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,10 +46,11 @@ class Designs {
                     decoration: BoxDecoration(
                       color: cWhite,
                       border: index == selectedCategory
-                          ? Border.all(color: Color.fromARGB(255, 219, 28, 14))
+                          ? Border.all(
+                              color: const Color.fromARGB(255, 219, 28, 14))
                           : null,
                     ),
-                    child: Container(
+                    child: SizedBox(
                       width: getWidthRatio(context, 0.35),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,

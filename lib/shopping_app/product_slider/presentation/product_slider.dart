@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:shopping_app/shopping_app/product_detail/product_detail_page.dart';
 import 'package:shopping_app/shopping_app/product_slider/presenter/presenter.dart';
 import '../sub_widgets/product_image_and_label_body.dart';
-import '../widget_designs/designs.dart';
-import '../widget_helpers/aligners.dart';
 import '../domain/product_data.dart';
 
 const sliderTitles = [

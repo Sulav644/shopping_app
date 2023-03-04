@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shopping_app/core/data.dart';
 import 'package:shopping_app/core/utils.dart';
 import 'package:shopping_app/shopping_app/product_grid/product_grid.dart';
 import 'package:shopping_app/shopping_app/product_grid/product_grid_3x3.dart';
-import 'package:shopping_app/shopping_app/product_slider/domain/product_data.dart';
 import 'package:shopping_app/shopping_app/product_slider/presentation/product_slider.dart';
-import 'package:shopping_app/shopping_app/product_slider/widget_designs/designs.dart';
 
 List<String> titles = [
   "Women's Fashions Sneakers",
@@ -48,11 +44,20 @@ class HomePageViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => ScrollToIndexCubit()),
-      BlocProvider(create: (context) => SelectCategoryCubit()),
-      BlocProvider(create: (context) => SelectSizeCubit())
-    ], child: HomePage());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ScrollToIndexCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SelectCategoryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SelectSizeCubit(),
+        )
+      ],
+      child: const HomePage(),
+    );
   }
 }
 
@@ -71,54 +76,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   void scrollToIndex(int index) {
-    itemController.scrollTo(index: index, duration: Duration(seconds: 1));
+    itemController.scrollTo(
+      index: index,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final scrollItemIndex = context.watch<ScrollToIndexCubit>().state;
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => scrollToIndex(scrollItemIndex));
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => scrollToIndex(scrollItemIndex),
+    );
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 196, 195, 195),
+      backgroundColor: const Color.fromARGB(255, 196, 195, 195),
       body: Column(
         children: [
           Stack(
             children: [
-              Container(
-                height: getHeightRatio(context, 0.5),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.center,
-                      end: Alignment.bottomCenter,
-                      colors: [Color.fromARGB(255, 1, 20, 36), Colors.white]),
-                ),
-              ),
-              Container(
-                width: getWidth(context),
-                height: getHeightRatio(context, 0.5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Image.asset(
-                        'assets/image.png',
-                        width: getWidthRatio(context, 0.6),
-                        height: getWidthRatio(context, 0.6),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: getHeightRatio(context, 0.5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ProductSlider(),
-                  ],
-                ),
+              screenBackground(),
+              deliveryLogo(),
+              slider(
+                const ProductSlider(),
               ),
             ],
           ),
@@ -143,6 +122,42 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  SizedBox slider(Widget child) => SizedBox(
+        height: getHeightRatio(context, 0.5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            child,
+          ],
+        ),
+      );
+  Container screenBackground() => Container(
+        height: getHeightRatio(context, 0.5),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+              colors: [Color.fromARGB(255, 1, 20, 36), Colors.white]),
+        ),
+      );
+  SizedBox deliveryLogo() => SizedBox(
+        width: getWidth(context),
+        height: getHeightRatio(context, 0.5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Image.asset(
+                'assets/image.png',
+                width: getWidthRatio(context, 0.6),
+                height: getWidthRatio(context, 0.6),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class ScrollToIndexCubit extends Cubit<int> {
